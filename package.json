@@ -1,0 +1,25 @@
+{
+  "name": "tourismwebsite",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Diganta7001/TourismWebsite#readme",
+  "bugs": {
+    "url": "https://github.com/Diganta7001/TourismWebsite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diganta7001/TourismWebsite.git"
+  },
+  "license": "ISC",
+  "author": "Diganta",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.1.4"
+  }
+}
