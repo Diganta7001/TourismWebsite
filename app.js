@@ -3,9 +3,12 @@ const app = express()
 const mongoose = require("mongoose")
 const Listing = require("./models/listing.js");
 const path = require("path")
+const methodOverride = require("method-override")
+
 app.set("view engine","ejs")
 app.set("views",path.join(__dirname,"views"))
 app.use(express.urlencoded ({ extended : true}))
+app.use(methodOverride("_method"))
 
 const mongo_url = "mongodb://127.0.0.1:27017/WonderLust2"
 main().then(()=>{
@@ -35,7 +38,7 @@ app.get("/listings",async (req,res)=>{
 app.get("/listings/new",(req,res)=>{
     res.render("listing/new.ejs")
 })
-
+// show route
 app.get("/listings/:id", async (req, res) => {
     let { id } = req.params;
     
@@ -47,7 +50,7 @@ app.get("/listings/:id", async (req, res) => {
 
     res.render("listing/show", { listingData });
 });
-
+// create route
 app.post("/newListing",async (req,res)=>{
     let newListing = req.body
     console.log(newListing)
@@ -56,4 +59,23 @@ app.post("/newListing",async (req,res)=>{
     addingNewListing.save()
     res.redirect("/listings")
     
+})
+//edit route
+
+app.get("/listing/:id/edit",async (req,res)=>{
+    let {id} = req.params
+    console.log(id)
+    let listing = await Listing.findById(id)
+    console.log(listing)
+    res.render("listing/edit.ejs",{listing})
+
+})
+
+app.put("/listings/:id", async (req,res)=>{
+    let {id} = req.params
+    console.log(id)
+    console.log(req.body.listing)
+    await Listing.findByIdAndUpdate(id,{...req.body.listing})
+    res.redirect(`/listings/${id}`)
+
 })
