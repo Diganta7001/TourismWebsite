@@ -32,6 +32,10 @@ app.get("/listings",async (req,res)=>{
     res.render("listing/index.ejs",{allListings})
 
 })
+app.get("/listings/new",(req,res)=>{
+    res.render("listing/new.ejs")
+})
+
 app.get("/listings/:id", async (req, res) => {
     let { id } = req.params;
     
@@ -43,3 +47,13 @@ app.get("/listings/:id", async (req, res) => {
 
     res.render("listing/show", { listingData });
 });
+
+app.post("/newListing",async (req,res)=>{
+    let newListing = req.body
+    console.log(newListing)
+    console.log(newListing.listing)
+    const addingNewListing = await new Listing(newListing.listing)
+    addingNewListing.save()
+    res.redirect("/listings")
+    
+})
