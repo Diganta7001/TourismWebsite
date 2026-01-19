@@ -14,7 +14,7 @@ uptill now we have created the delete route and now we will be creating the boil
     5. to run the static files like css or javascript we make a new folder call 'public' 
         and in app.js do this
             app.use(express.static(path.join(__dirname,"/public")))
-_____________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________
 _______________________________________________________________________________________________________________________
 
     6. to bring modularity we create the inlcudes folder inside views folder
@@ -25,4 +25,9 @@ ________________________________________________________________________________
              <%- include("../includes/navbar.ejs") %>  inside boilerplate body
     8. font awesome tag for nav bar is added 
     9. some custom stylings were done for navbar.ejs in style.css 
+
+_____________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________
+
+    10. footer.ejs is add and linked with boilerplate.ejs same way before.
 
