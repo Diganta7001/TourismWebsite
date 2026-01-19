@@ -1,3 +1,25 @@
-body{
-    background-color: pink;
+/* Transparent background */
+.navbar {
+    background-color: white !important;
+    height: 5rem;
+}
+
+/* Make brand + nav links black */
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: black !important;
+}
+
+/* Make toggler border + icon black */
+.navbar .navbar-toggler {
+    border-color: black !important;
+}
+
+.navbar .navbar-toggler-icon {
+    filter: invert(0) !important; /* 0 = black, 1 = white */
+}
+
+.fa-compass {
+    color: #fe424d !important;
+    font-size: 2rem;
 }
