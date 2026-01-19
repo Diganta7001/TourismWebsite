@@ -1,0 +1,17 @@
+This text file will keep the inner details of this project for me.
+
+uptill now we have created the delete route and now we will be creating the boiler plate code
+    1. we have installed ejs-mate by running npm i ejs-mate.
+    2. we have created a layout folder in which we will be storing the layout and it is boilerplate.ejs
+    3. inside boilerplate.ejs we have written
+         <div>  <%- body -%> </div>
+        to require the body then we call this boilerplate.ejs from other eg. index.ejs file 
+        first remove head part of index.ejs then do <% layout('./layouts/boilerplate.ejs') -%>
+    4. also in app.js do this 
+        const ejsMate = require("ejs-mate")
+        app.engine('ejs', ejsMate);
+
+    5. to run the static files like css or javascript we make a new folder call 'public' 
+        and in app.js do this
+            app.use(express.static(path.join(__dirname,"/public")))
+
