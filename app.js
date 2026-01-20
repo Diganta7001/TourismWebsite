@@ -55,15 +55,17 @@ app.get("/listings/:id", async (req, res) => {
     res.render("listing/show", { listingData });
 });
 // create route
-app.post("/newListing",async (req,res)=>{
-    let newListing = req.body
-    console.log(newListing)
-    console.log(newListing.listing)
-    const addingNewListing = await new Listing(newListing.listing)
-    addingNewListing.save()
-    res.redirect("/listings")
-    
-})
+app.post("/newListing", async (req, res) => {
+  try {
+    const listing = new Listing(req.body.listing);
+    await listing.save();
+    res.redirect("/listings");
+  } catch (err) {
+    console.log("Validation error:", err.message);
+    res.status(400).send("Validation failed");
+  }
+});
+
 //edit route
 
 app.get("/listing/:id/edit",async (req,res)=>{
