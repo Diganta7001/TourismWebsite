@@ -1,14 +1,33 @@
 <% layout("/layouts/boilerplate.ejs") %>
-<body>
-    <ul>
-        <li><%= listingData.title %></li>
-        <li><%= listingData.description %></li>
-        <li> &#x20B9 <%= listingData.price.toLocaleString('en-IN') %></li>
-        <li><%= listingData.location %></li>
 
-    </ul>
-    <a href="/listing/<%= listingData._id %>/edit" >edit this listing</a>
-    <a href="/listings">goto listing</a>
-    <form method="post" action="/listing/<%= listingData._id %>?_method=DELETE" ><button>delete this listing</button></form>
+<body>
+    <div class="container show-page">
+        
+        <div class="show-card">
+            
+            <!-- IMAGE -->
+            <div class="show-image-wrapper">
+                <img src="<%= listingData.image.url %>" class="show-image" alt="<%= listingData.title %>">
+            </div>
+
+            <!-- DETAILS -->
+            <div class="show-content">
+                <h2 class="show-title"><%= listingData.title %></h2>
+                <p class="show-description"><%= listingData.description %></p>
+                <p class="show-price">&#x20B9 <%= listingData.price.toLocaleString('en-IN') %>/Night</p>
+                <p class="show-location"><%= listingData.location %></p>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="show-actions">
+                <a href="/listing/<%= listingData._id %>/edit" class="btn-secondary">Edit</a>
+                <a href="/listings" class="btn-tertiary">Back to Listings</a>
+                <form method="post" action="/listing/<%= listingData._id %>?_method=DELETE">
+                    <button class="btn-danger">Delete</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>
