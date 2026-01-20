@@ -1,21 +1,73 @@
 <% layout('./layouts/boilerplate.ejs') %>
 
 <body>
-    <h1>Edit New Listing</h1>
-    <form method="post" action="/listings/<%= listing._id %>?_method=PUT">
-        <input type="text" name="listing[title]" placeholder="enter title" value="<%=listing.title%>">
-        <br><br>
-        <textarea type="text" name="listing[description]" placeholder="add description" ><%=listing.description%></textarea>
-        <br><br>
-        <input type="number" name="listing[price]" placeholder="enter price" value="<%=listing.price%>">
-        <br><br>
-        <input type="text" name="listing[image][url]" placeholder="enter image url" value="<%=listing.image.url%>">
-        <br><br>
-        <input type="text" name="listing[location]" placeholder="enter location" value="<%=listing.location%>">
-        <br><br>
-        <input type="text" name="listing[country]" placeholder="enter country" value="<%=listing.country%>">
-        <br><br>
-        <button>Submit</button>
-    </form>
+    <div class="container form-page">
+        <h3 class="page-heading">Edit Listing</h3>
+
+        <div class="form-card narrow">
+            <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="listing-form">
+
+                <div class="image-preview-wrapper">
+                    <img id="imgPreview" src="<%= listing.image.url %>" alt="Listing Image Preview">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" 
+                        id="imageUrlInput"
+                        name="listing[image][url]" 
+                        placeholder="Image URL" 
+                        value="<%= listing.image.url %>">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" 
+                        name="listing[title]" 
+                        placeholder="Title" 
+                        value="<%= listing.title %>">
+                </div>
+
+                <div class="form-group">
+                    <textarea name="listing[description]" placeholder="Description"><%= listing.description %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="number" 
+                        name="listing[price]" 
+                        placeholder="Price" 
+                        value="<%= listing.price %>">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" 
+                        name="listing[location]" 
+                        placeholder="Location" 
+                        value="<%= listing.location %>">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" 
+                        name="listing[country]" 
+                        placeholder="Country" 
+                        value="<%= listing.country %>">
+                </div>
+
+                <button class="btn-submit">Save Changes</button>
+                <div class="button-group">
+                    <a href="/listings/<%= listing._id %>" class="btn-secondary">Back to Listing</a>
+                    <a href="/listings" class="btn-tertiary">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('imageUrlInput');
+        const preview = document.getElementById('imgPreview');
+
+        input.addEventListener('input', () => {
+            preview.src = input.value;
+        });
+    </script>
 </body>
 </html>

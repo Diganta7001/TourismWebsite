@@ -164,4 +164,75 @@ body {
 .btn-submit:hover {
     opacity: 0.9;
 }
+/* Narrower card width */
+.form-card.narrow {
+    max-width: 520px;
+    margin: 0 auto;
+}
+/* Slightly wider card */
+.form-card.narrow {
+    max-width: 650px;
+    margin: 0 auto;
+}
 
+/* Image preview container */
+.image-preview-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+    background: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Preview image itself */
+#imgPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* full image visible */
+    border-radius: 0.8rem; /* THIS FIXES YOUR ROUNDED CORNERS */
+}
+/* BUTTON GROUP LAYOUT */
+.button-group {
+    margin-top: 1.2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Secondary = Back to Listing */
+.btn-secondary {
+    flex: 1;
+    text-align: center;
+    padding: 0.9rem;
+    border-radius: 0.6rem;
+    border: 1px solid #d2d2d2;
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+    background: white;
+    transition: background 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #f1f1f1;
+}
+
+/* Tertiary = Cancel */
+.btn-tertiary {
+    flex: 1;
+    text-align: center;
+    padding: 0.9rem;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    font-weight: 500;
+    color: #555;
+    background: transparent;
+    transition: opacity 0.2s ease;
+}
+
+.btn-tertiary:hover {
+    opacity: 0.8;
+}
