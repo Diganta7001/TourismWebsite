@@ -1,21 +1,39 @@
 <% layout('./layouts/boilerplate.ejs') %>
 
 <body>
-    <h1>Add New Listing</h1>
-    <form action="/newListing" method="post">
-        <input type="text" name="listing[title]" placeholder="enter title">
-        <br><br>
-        <textarea type="text" name="listing[description]" placeholder="add description"></textarea>
-        <br><br>
-        <input type="number" name="listing[price]" placeholder="enter price">
-        <br><br>
-        <input type="text" name="listing[image][url]" placeholder="enter image url">
-        <br><br>
-        <input type="text" name="listing[location]" placeholder="enter location">
-        <br><br>
-        <input type="text" name="listing[country]" placeholder="enter country">
-        <br><br>
-        <button>Submit</button>
-    </form>
+    <div class="container form-page">
+        <h3 class="page-heading">Add New Listing</h3>
+
+        <div class="form-card">
+            <form action="/newListing" method="post" class="listing-form">
+                
+                <div class="form-group">
+                    <input type="text" name="listing[title]" placeholder="Title">
+                </div>
+
+                <div class="form-group">
+                    <textarea name="listing[description]" placeholder="Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="number" name="listing[price]" placeholder="Price">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="listing[image][url]" placeholder="Image URL">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="listing[location]" placeholder="Location">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="listing[country]" placeholder="Country">
+                </div>
+
+                <button class="btn-submit">Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

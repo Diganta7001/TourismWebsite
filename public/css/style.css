@@ -106,3 +106,62 @@ body {
 .listing-grid {
     margin-bottom: 3rem;
 }
+
+/* FORM PAGE */
+.form-page {
+    max-width: 700px;
+    margin: 3rem auto;
+}
+
+/* CARD WRAPPER */
+.form-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* FORM FIELDS */
+.listing-form .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.listing-form input,
+.listing-form textarea {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 0.6rem;
+    border: 1px solid #d2d2d2;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.listing-form input:focus,
+.listing-form textarea:focus {
+    border-color: #fe424d;
+    box-shadow: 0 0 0 3px rgba(254,66,77,0.15);
+}
+
+.listing-form textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* SUBMIT BUTTON FULL WIDTH */
+.btn-submit {
+    width: 100%;
+    padding: 0.9rem;
+    background-color: #fe424d;
+    border: none;
+    border-radius: 0.6rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-submit:hover {
+    opacity: 0.9;
+}
+
