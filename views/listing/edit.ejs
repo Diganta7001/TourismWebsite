@@ -5,62 +5,48 @@
         <h3 class="page-heading">Edit Listing</h3>
 
         <div class="form-card narrow">
-            <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="listing-form">
-
-                <div class="image-preview-wrapper">
-                    <img id="imgPreview" src="<%= listing.image.url %>" alt="Listing Image Preview">
+           <form method="post"  action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
+                <div class="mb-3 text-center">
+                    <img id="imgPreview" src="<%= listing.image.url %>" class="img-fluid rounded" style="max-height: 250px;" alt="Preview">
                 </div>
 
-                <div class="form-group">
-                    <input type="text" 
-                        id="imageUrlInput"
-                        name="listing[image][url]" 
-                        placeholder="Image URL" 
-                        value="<%= listing.image.url %>">
+                <div class="mb-3">
+                    <input type="text" name="listing[image][url]" value="<%= listing.image.url %>" class="form-control" placeholder="Image URL" required>
+                    <div class="invalid-feedback">Image URL is required</div>
                 </div>
 
-                <div class="form-group">
-                    <input type="text" 
-                        name="listing[title]" 
-                        placeholder="Title" 
-                        value="<%= listing.title %>">
+                <div class="mb-3">
+                    <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" placeholder="Title" required>
+                    <div class="invalid-feedback">Title is required</div>
                 </div>
 
-                <div class="form-group">
-                    <textarea name="listing[description]" placeholder="Description"><%= listing.description %></textarea>
+                <div class="mb-3">
+                    <textarea name="listing[description]" class="form-control" placeholder="Description" required><%= listing.description %></textarea>
+                    <div class="invalid-feedback">Description is required</div>
                 </div>
 
-                <div class="form-group">
-                    <input type="number" 
-                        name="listing[price]" 
-                        placeholder="Price" 
-                        value="<%= listing.price %>">
+                <div class="mb-3">
+                    <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" placeholder="Price" required>
+                    <div class="invalid-feedback">Price is required</div>
                 </div>
 
-                <div class="form-group">
-                    <input type="text" 
-                        name="listing[location]" 
-                        placeholder="Location" 
-                        value="<%= listing.location %>">
+                <div class="mb-3">
+                    <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" placeholder="Location" required>
+                    <div class="invalid-feedback">Location is required</div>
                 </div>
 
-                <div class="form-group">
-                    <input type="text" 
-                        name="listing[country]" 
-                        placeholder="Country" 
-                        value="<%= listing.country %>">
+                <div class="mb-3">
+                    <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" placeholder="Country" required>
+                    <div class="invalid-feedback">Country is required</div>
                 </div>
 
-                <button class="btn-submit">Save Changes</button>
-                <div class="button-group">
-                    <a href="/listings/<%= listing._id %>" class="btn-secondary">Back to Listing</a>
-                    <a href="/listings" class="btn-tertiary">Cancel</a>
-                </div>
+                <button class="btn btn-primary">Save Changes</button>
 
-            </form>
+</form>
+
         </div>
     </div>
-
+    <script src="/js/script.js"></script>
     <script>
         const input = document.getElementById('imageUrlInput');
         const preview = document.getElementById('imgPreview');
@@ -68,6 +54,6 @@
         input.addEventListener('input', () => {
             preview.src = input.value;
         });
-    </script>
+    </script> 
 </body>
-</html>
+

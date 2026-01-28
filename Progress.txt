@@ -36,4 +36,7 @@ ________________________________________________________________________________
 _____________________________________________________________________________________________________________________
     12. setting the forms such that when we do not fill the required fields it turns red without showing the browser's
         custom requird marks.  
+_____________________________________________________________________________________________________________________
+    13. P3V2 client side validation for edit.ejs is done so no required field can have null values all the vlaues must
+        be filled. we have done it using bootstrap "invalid-feedback" CLASS
 
