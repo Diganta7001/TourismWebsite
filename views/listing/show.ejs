@@ -1,33 +1,38 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<body>
-    <div class="container show-page">
+<div class="container show-page">
         
-        <div class="show-card">
-            
-            <!-- IMAGE -->
-            <div class="show-image-wrapper">
-                <img src="<%= listingData.image.url %>" class="show-image" alt="<%= listingData.title %>">
-            </div>
-
-            <!-- DETAILS -->
-            <div class="show-content">
-                <h2 class="show-title"><%= listingData.title %></h2>
-                <p class="show-description"><%= listingData.description %></p>
-                <p class="show-price">&#36 <%= listingData.price.toLocaleString('en-US') %>/Night</p>
-                <p class="show-location"><%= listingData.location %></p>
-            </div>
-
-            <!-- ACTION BUTTONS -->
-            <div class="show-actions">
-                <a href="/listing/<%= listingData._id %>/edit" class="btn-secondary">Edit</a>
-                <a href="/listings" class="btn-tertiary">Back to Listings</a>
-                <form method="post" action="/listing/<%= listingData._id %>?_method=DELETE">
-                    <button class="btn-danger">Delete</button>
-                </form>
-            </div>
-
+    <div class="show-card">
+        
+        <!-- IMAGE -->
+        <div class="show-image-wrapper">
+            <img src="<%= listingData.image.url %>" 
+                 class="show-image rounded-4" 
+                 alt="<%= listingData.title %>">
         </div>
+
+        <!-- DETAILS -->
+        <div class="show-content">
+            <h2 class="show-title"><%= listingData.title %></h2>
+            <p class="show-description"><%= listingData.description %></p>
+            <p class="show-price">&#36 <%= listingData.price.toLocaleString('en-US') %>/Night</p>
+            <p class="show-location"><%= listingData.location %></p>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="show-actions">
+            <a href="/listing/<%= listingData._id %>/edit" class="btn-edit">
+                Edit
+            </a>
+
+            <a href="/listings" class="btn-back">
+                Back to Listings
+            </a>
+
+            <form method="post" action="/listing/<%= listingData._id %>?_method=DELETE">
+                <button class="btn-delete">Delete</button>
+            </form>
+        </div>
+
     </div>
-</body>
-</html>
+</div>

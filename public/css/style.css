@@ -1,9 +1,22 @@
-body {
-    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif !important;
-    font-weight: 400 !important;
+/* ===========================
+   GLOBAL
+=========================== */
+
+html, body {
+    height: 100%;
 }
 
-/* NAVBAR */
+body {
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, 
+    "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif !important;
+    font-weight: 400 !important;
+    margin: 0;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
 .navbar {
     background-color: white !important;
     height: 5rem;
@@ -14,37 +27,31 @@ body {
     color: black !important;
 }
 
-.navbar .navbar-toggler {
-    border-color: black !important;
-}
-
-.navbar .navbar-toggler-icon {
-    filter: invert(0) !important;
-}
-
 .fa-compass {
     color: #fe424d !important;
     font-size: 2rem;
 }
 
-/* FOOTER */
-.f-info {
-    text-align: center;
+/* ===========================
+   FOOTER
+=========================== */
+
+footer {
     background-color: #ebebeb;
-    height: 5rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
 }
 
-.f-info-links {
-    width: 100%;
+.f-info {
+    text-align: center;
+    padding: 1.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
 }
 
 .f-info-links a {
     text-decoration: none;
-    color: #222222;
+    color: #222;
+    margin: 0 0.6rem;
 }
 
 .f-info-links a:hover {
@@ -52,18 +59,20 @@ body {
     color: rgb(71, 71, 217);
 }
 
-.f-info-socials {
-    width: 100%;
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: center;
-}
-
 .f-info-socials i {
-    margin-right: 1rem;
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
 }
 
-/* LISTING CARDS */
+.f-info-socials i:hover {
+    color: #fe424d;
+}
+
+/* ===========================
+   LISTING CARDS
+=========================== */
+
 .listing-link {
     text-decoration: none;
     color: inherit;
@@ -97,32 +106,20 @@ body {
     padding: 0.6rem 0;
 }
 
-.page-heading {
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-}
+/* ===========================
+   FORM PAGES
+=========================== */
 
-.listing-grid {
-    margin-bottom: 3rem;
-}
-
-/* FORM PAGE */
 .form-page {
     max-width: 700px;
     margin: 3rem auto;
 }
 
-/* CARD WRAPPER */
 .form-card {
     background: white;
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-
-/* FORM FIELDS */
-.listing-form .form-group {
-    margin-bottom: 1.2rem;
 }
 
 .listing-form input,
@@ -131,8 +128,6 @@ body {
     padding: 0.9rem 1rem;
     border-radius: 0.6rem;
     border: 1px solid #d2d2d2;
-    font-size: 1rem;
-    outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -142,12 +137,6 @@ body {
     box-shadow: 0 0 0 3px rgba(254,66,77,0.15);
 }
 
-.listing-form textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-/* RESTORE YOUR ORIGINAL SUBMIT BUTTON STYLE (WORKS WITH BOOTSTRAP VALIDATION) */
 .btn-submit {
     width: 100%;
     padding: 0.9rem;
@@ -156,7 +145,6 @@ body {
     border-radius: 0.6rem;
     color: white;
     font-weight: 600;
-    cursor: pointer;
     transition: opacity 0.2s ease;
 }
 
@@ -164,82 +152,15 @@ body {
     opacity: 0.9;
 }
 
-/* Narrower card width */
-.form-card.narrow {
-    max-width: 650px;
-    margin: 0 auto;
-}
+/* ===========================
+   SHOW PAGE
+=========================== */
 
-/* Image preview container */
-.image-preview-wrapper {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    border-radius: 0.8rem;
-    overflow: hidden;
-    margin-bottom: 1.2rem;
-    background: #f3f3f3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Preview image itself */
-#imgPreview {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 0.8rem;
-}
-
-/* BUTTON GROUP LAYOUT */
-.button-group {
-    margin-top: 1.2rem;
-    display: flex;
-    gap: 1rem;
-}
-
-/* Secondary = Back */
-.btn-secondary {
-    flex: 1;
-    text-align: center;
-    padding: 0.9rem;
-    border-radius: 0.6rem;
-    border: 1px solid #d2d2d2;
-    text-decoration: none;
-    font-weight: 500;
-    color: black;
-    background: white;
-    transition: background 0.2s ease;
-}
-
-.btn-secondary:hover {
-    background: #f1f1f1;
-}
-
-/* Tertiary = Cancel */
-.btn-tertiary {
-    flex: 1;
-    text-align: center;
-    padding: 0.9rem;
-    border-radius: 0.6rem;
-    text-decoration: none;
-    font-weight: 500;
-    color: #555;
-    background: transparent;
-    transition: opacity 0.2s ease;
-}
-
-.btn-tertiary:hover {
-    opacity: 0.8;
-}
-
-/* SHOW PAGE */
 .show-page {
     max-width: 600px;
     margin: 3rem auto;
 }
 
-/* CARD */
 .show-card {
     background: white;
     border-radius: 1rem;
@@ -247,77 +168,112 @@ body {
     padding: 1.5rem;
 }
 
-/* IMAGE WRAPPER */
 .show-image-wrapper {
     width: 100%;
     aspect-ratio: 4 / 3;
     border-radius: 1rem;
     overflow: hidden;
     margin-bottom: 1.5rem;
-    background: #f3f3f3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* IMAGE */
 .show-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 1rem;
-    background: #fafafa;
 }
 
-/* TEXT */
-.show-title {
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-}
+/* Buttons */
 
-.show-description {
-    margin-bottom: 0.6rem;
-    color: #444;
-}
-
-.show-price {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.show-location {
-    margin-bottom: 1.2rem;
-    color: #666;
-}
-
-/* BUTTON GROUP */
-.show-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-/* DANGER = Delete */
-.btn-danger {
-    flex: 1;
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 0.6rem;
-    border: none;
-    background: #fe424d !important;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.btn-danger:hover {
-    background: #d9534f !important;
-}
-
-.btn-primary{
+.btn-primary {
     background: #fe424d !important;
     border: none !important;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     background-color: #d9534f !important;
+}
+
+.btn-danger {
+    background: #fe424d !important;
+    border: none !important;
+}
+
+.btn-danger:hover {
+    background-color: #d9534f !important;
+}
+
+/* ===========================
+   SHOW PAGE IMPROVEMENTS
+=========================== */
+
+/* Image rounded properly */
+.show-image-wrapper {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.show-image {
+    border-radius: 1rem;
+}
+
+/* Action buttons layout */
+.show-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Edit button */
+.btn-edit {
+    flex: 1;
+    padding: 0.8rem;
+    text-align: center;
+    background-color: #fe424d;
+    color: white;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-edit:hover {
+    background-color: #d9534f;
+    transform: translateY(-2px);
+}
+
+/* Back button */
+.btn-back {
+    flex: 1;
+    padding: 0.8rem;
+    text-align: center;
+    border: 1px solid #d2d2d2;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    font-weight: 500;
+    color: #333;
+    background: white;
+    transition: background 0.2s ease;
+}
+
+.btn-back:hover {
+    background: #f3f3f3;
+}
+
+/* Delete button */
+.btn-delete {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 0.6rem;
+    border: none;
+    background: #fe424d;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+    transform: translateY(-2px);
 }
