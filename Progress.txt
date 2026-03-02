@@ -39,3 +39,5 @@ ________________________________________________________________________________
 _____________________________________________________________________________________________________________________
     13. P3V2 client side validation for edit.ejs is done so no required field can have null values all the vlaues must
         be filled. we have done it using bootstrap "invalid-feedback" CLASS
+_____________________________________________________________________________________________________________________
+    14. Custom Error handler, (Wrap Aync, express Error) class are creadted and implemented.

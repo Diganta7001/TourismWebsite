@@ -6,6 +6,7 @@ const path = require("path")
 const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
 const WrapAsync = require("./utils/WrapAsync.js")
+const ExpressError = require("./utils/ExpressError.js")
 
 
 app.use(express.static(path.join(__dirname,"/public")))
@@ -44,7 +45,7 @@ app.get("/listings/new",(req,res)=>{
     res.render("listing/new.ejs")
 })
 // show route
-app.get("/listings/:id", async (req, res) => {
+app.get("/listings/:id", WrapAsync(async (req, res) => {
     let { id } = req.params;
     
     const listingData = await Listing.findById(id);
@@ -54,7 +55,7 @@ app.get("/listings/:id", async (req, res) => {
     }
 
     res.render("listing/show", { listingData });
-});
+}));
 // create route
 app.post("/newListing", async (req, res,next) => {
   try {
@@ -98,7 +99,12 @@ app.delete("/listing/:id",async (req,res)=>{
     res.redirect("/listings")
 })
 
+// 404 handler (NO PATH)
+app.use((req, res, next) => {
+    next(new ExpressError(404, "Page Not Found!!!"));
+});
 // custom error 
 app.use((err,req,res,next)=>{
-    res.send("something went wrong!")
+    let {statusCode = 500, message ="Something went wrong!!!"}=err
+    res.status(statusCode).send(message);
 })
