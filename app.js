@@ -5,6 +5,7 @@ const Listing = require("./models/listing.js");
 const path = require("path")
 const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
+const WrapAsync = require("./utils/WrapAsync.js")
 
 
 app.use(express.static(path.join(__dirname,"/public")))
