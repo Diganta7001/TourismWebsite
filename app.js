@@ -55,12 +55,13 @@ app.get("/listings/:id", async (req, res) => {
     res.render("listing/show", { listingData });
 });
 // create route
-app.post("/newListing", async (req, res) => {
+app.post("/newListing", async (req, res,next) => {
   try {
     const listing = new Listing(req.body.listing);
     await listing.save();
     res.redirect("/listings");
   } catch (err) {
+    next(err);
     console.log("Validation error:", err.message);
     res.status(400).send("Validation failed");
   }
@@ -94,4 +95,9 @@ app.delete("/listing/:id",async (req,res)=>{
     let deletedElement = await Listing.findByIdAndDelete(id)
     console.log(deletedElement)
     res.redirect("/listings")
+})
+
+// custom error 
+app.use((err,req,res,next)=>{
+    res.send("something went wrong!")
 })
