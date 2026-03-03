@@ -1,48 +1,42 @@
-<% layout('./layouts/boilerplate.ejs') %>
+<% layout('layouts/boilerplate') %>
 
-<body>
-    <div class="container form-page">
-        <h3 class="page-heading">Add New Listing</h3>
+<div class="container form-page">
+    <h3 class="page-heading">Add New Listing</h3>
 
-        <div class="form-card">
-            <form action="/newListing" method="post" class="needs-validation" novalidate>
+    <div class="form-card">
+        <form action="/listings" method="POST" class="needs-validation" novalidate>
 
-  <div class="mb-3">
-    <input type="text" name="listing[title]" class="form-control" placeholder="Title" required>
-    <div class="valid-feedback">Title Looks Good</div>
-    <div class="invalid-feedback">Title is required</div>
-  </div>
+            <div class="mb-3">
+                <input type="text" name="listing[title]" class="form-control" placeholder="Title" required>
+                <div class="invalid-feedback">Title is required</div>
+            </div>
 
-  <div class="mb-3">
-    <textarea name="listing[description]" class="form-control" placeholder="Description" required></textarea>
-    <div class="valid-feedback">Description Looks Good</div>
-    <div class="invalid-feedback">Description is required</div>
-  </div>
+            <div class="mb-3">
+                <textarea name="listing[description]" class="form-control" placeholder="Description" required></textarea>
+                <div class="invalid-feedback">Description is required</div>
+            </div>
 
-  <div class="mb-3">
-    <input type="number" name="listing[price]" class="form-control" placeholder="Price" required>
-    <div class="invalid-feedback">Price is required</div>
-  </div>
+            <div class="mb-3">
+                <input  name="listing[price]" class="form-control" placeholder="Price" required>
+                <div class="invalid-feedback">Price is required</div>
+            </div>
 
-  <div class="mb-3">
-    <input type="text" name="listing[image][url]" class="form-control" placeholder="Image URL">
-    <div class="invalid-feedback">Image URL is required</div>
-  </div>
+            <div class="mb-3">
+                <input type="text" name="listing[image][url]" class="form-control" placeholder="Image URL">
+            </div>
 
-  <div class="mb-3">
-    <input type="text" name="listing[location]" class="form-control" placeholder="Location" required>
-    <div class="invalid-feedback">Location is required</div>
-  </div>
+            <div class="mb-3">
+                <input type="text" name="listing[location]" class="form-control" placeholder="Location" required>
+                <div class="invalid-feedback">Location is required</div>
+            </div>
 
-  <div class="mb-3">
-    <input type="text" name="listing[country]" class="form-control" placeholder="Country" required>
-    <div class="invalid-feedback">Country is required</div>
-  </div>
+            <div class="mb-3">
+                <input type="text" name="listing[country]" class="form-control" placeholder="Country" required>
+                <div class="invalid-feedback">Country is required</div>
+            </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
 
-        </div>
+        </form>
     </div>
-</body>
-</html>
+</div>

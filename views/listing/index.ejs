@@ -1,10 +1,12 @@
-<% layout('./layouts/boilerplate.ejs') %>
-<body>
-    <div class="container mt-4">
-        <h3 class="page-heading">All Listings</h3>
+<% layout('layouts/boilerplate') %>
 
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4 listing-grid">
-            <% for (let listing of allListings) { %>
+<div class="container mt-4">
+    <h3 class="page-heading">All Listings</h3>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4 listing-grid">
+        <% for (let listing of allListings) { %>
+
+        <div class="col">
             <a href="/listings/<%= listing._id %>" class="listing-link">
                 <div class="card listing-card">
                     <div class="listing-img-wrapper">
@@ -12,14 +14,15 @@
                     </div>
                     <div class="card-body">
                         <h5><%= listing.title %></h5>
-                        <p><%= listing.description %><br>
-                        <b>&#36 <%= listing.price.toLocaleString("en-US") %>/Night</b></p>
+                        <p>
+                            <%= listing.description %><br>
+                            <b>&#36 <%= listing.price.toLocaleString("en-US") %>/Night</b>
+                        </p>
                     </div>
                 </div>
             </a>
-            <% } %>
         </div>
-    </div>
-</body>
 
-</html>
+        <% } %>
+    </div>
+</div>

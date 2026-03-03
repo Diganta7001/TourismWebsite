@@ -1,17 +1,15 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout('layouts/boilerplate') %>
 
 <div class="container show-page">
         
     <div class="show-card">
         
-        <!-- IMAGE -->
         <div class="show-image-wrapper">
             <img src="<%= listingData.image.url %>" 
                  class="show-image rounded-4" 
                  alt="<%= listingData.title %>">
         </div>
 
-        <!-- DETAILS -->
         <div class="show-content">
             <h2 class="show-title"><%= listingData.title %></h2>
             <p class="show-description"><%= listingData.description %></p>
@@ -19,9 +17,9 @@
             <p class="show-location"><%= listingData.location %></p>
         </div>
 
-        <!-- ACTION BUTTONS -->
         <div class="show-actions">
-            <a href="/listing/<%= listingData._id %>/edit" class="btn-edit">
+            <!-- FIXED ROUTE -->
+            <a href="/listings/<%= listingData._id %>/edit" class="btn-edit">
                 Edit
             </a>
 
@@ -29,8 +27,9 @@
                 Back to Listings
             </a>
 
-            <form method="post" action="/listing/<%= listingData._id %>?_method=DELETE">
-                <button class="btn-delete">Delete</button>
+            <!-- FIXED ROUTE -->
+            <form method="POST" action="/listings/<%= listingData._id %>?_method=DELETE">
+                <button type="submit" class="btn-delete">Delete</button>
             </form>
         </div>
 

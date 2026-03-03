@@ -1,59 +1,41 @@
-<% layout('./layouts/boilerplate.ejs') %>
+<% layout('layouts/boilerplate') %>
 
-<body>
-    <div class="container form-page">
-        <h3 class="page-heading">Edit Listing</h3>
+<div class="container form-page">
+    <h3 class="page-heading">Edit Listing</h3>
 
-        <div class="form-card narrow">
-           <form method="post"  action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
-                <div class="mb-3 text-center">
-                    <img id="imgPreview" src="<%= listing.image.url %>" class="img-fluid rounded" style="max-height: 250px;" alt="Preview">
-                </div>
+    <div class="form-card narrow">
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
 
-                <div class="mb-3">
-                    <input type="text" name="listing[image][url]" value="<%= listing.image.url %>" class="form-control" placeholder="Image URL" required>
-                    <div class="invalid-feedback">Image URL is required</div>
-                </div>
+            <div class="mb-3 text-center">
+                <img id="imgPreview" src="<%= listing.image.url %>" class="img-fluid rounded" style="max-height: 250px;" alt="Preview">
+            </div>
 
-                <div class="mb-3">
-                    <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" placeholder="Title" required>
-                    <div class="invalid-feedback">Title is required</div>
-                </div>
+            <div class="mb-3">
+                <input type="text" name="listing[image][url]" value="<%= listing.image.url %>" class="form-control" required>
+            </div>
 
-                <div class="mb-3">
-                    <textarea name="listing[description]" class="form-control" placeholder="Description" required><%= listing.description %></textarea>
-                    <div class="invalid-feedback">Description is required</div>
-                </div>
+            <div class="mb-3">
+                <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
+            </div>
 
-                <div class="mb-3">
-                    <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" placeholder="Price" required>
-                    <div class="invalid-feedback">Price is required</div>
-                </div>
+            <div class="mb-3">
+                <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+            </div>
 
-                <div class="mb-3">
-                    <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" placeholder="Location" required>
-                    <div class="invalid-feedback">Location is required</div>
-                </div>
+            <div class="mb-3">
+                <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
+            </div>
 
-                <div class="mb-3">
-                    <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" placeholder="Country" required>
-                    <div class="invalid-feedback">Country is required</div>
-                </div>
+            <div class="mb-3">
+                <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+            </div>
 
-                <button class="btn btn-primary">Save Changes</button>
+            <div class="mb-3">
+                <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
+            </div>
 
-</form>
+            <button type="submit" class="btn btn-primary w-100">Save Changes</button>
 
-        </div>
+        </form>
     </div>
-    <script src="/js/script.js"></script>
-    <script>
-        const input = document.getElementById('imageUrlInput');
-        const preview = document.getElementById('imgPreview');
-
-        input.addEventListener('input', () => {
-            preview.src = input.value;
-        });
-    </script> 
-</body>
-
+</div>

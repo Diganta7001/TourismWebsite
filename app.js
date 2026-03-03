@@ -1,110 +1,150 @@
 const express = require("express");
-const app = express()
-const mongoose = require("mongoose")
+const app = express();
+const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
-const path = require("path")
-const methodOverride = require("method-override")
-const ejsMate = require("ejs-mate")
-const WrapAsync = require("./utils/WrapAsync.js")
-const ExpressError = require("./utils/ExpressError.js")
+const path = require("path");
+const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
+const WrapAsync = require("./utils/WrapAsync.js");
+const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema } = require("./schema.js");
 
 
-app.use(express.static(path.join(__dirname,"/public")))
-app.engine('ejs', ejsMate);
-app.set("view engine","ejs")
-app.set("views",path.join(__dirname,"views"))
-app.use(express.urlencoded ({ extended : true}))
-app.use(methodOverride("_method"))
+// app config..
 
-const mongo_url = "mongodb://127.0.0.1:27017/WonderLust2"
-main().then(()=>{
-    console.log("connected to mongodb")
-}).catch((e)=>{
-    console.log(`error occured ${e}`)
-})
+app.engine("ejs", ejsMate);
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-async function main(){
-   await mongoose.connect(mongo_url)
-}
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.listen(8080,()=>{
-    console.log("listining to port 8080")
-})
+// db connection
 
-app.get("/",(req,res)=>{
-    res.send("it is working")
-})
 
-app.get("/listings",async (req,res)=>{
+const mongo_url = "mongodb://127.0.0.1:27017/WonderLust2";
 
-    const allListings = await Listing.find({})
-    res.render("listing/index.ejs",{allListings})
+mongoose.connect(mongo_url)
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.log("MongoDB Connection Error:", err));
 
-})
-app.get("/listings/new",(req,res)=>{
-    res.render("listing/new.ejs")
-})
-// show route
+
+// joi validation middleware
+
+
+const validateListing = (req, res, next) => {
+    const { error } = listingSchema.validate(req.body);
+
+    if (error) {
+        const msg = error.details.map(el => el.message).join(",");
+        throw new ExpressError(400, msg);
+    }
+    next();
+};
+
+
+//ROUTES
+
+//Home
+app.get("/", (req, res) => {
+    res.send("It is working");
+});
+
+//Index - Show all listings
+app.get("/listings", WrapAsync(async (req, res) => {
+    const allListings = await Listing.find({});
+    res.render("listing/index.ejs", { allListings });
+}));
+
+//NEW - Form
+app.get("/listings/new", (req, res) => {
+    res.render("listing/new.ejs");
+});
+
+// CREATE
+app.post(
+    "/listings",
+    validateListing,
+    WrapAsync(async (req, res) => {
+        const listing = new Listing(req.body.listing);
+        await listing.save();
+        res.redirect("/listings");
+    })
+);
+
+// SHOW
 app.get("/listings/:id", WrapAsync(async (req, res) => {
-    let { id } = req.params;
-    
+    const { id } = req.params;
     const listingData = await Listing.findById(id);
 
     if (!listingData) {
-        return res.status(404).send("Listing not found");
+        throw new ExpressError(404, "Listing not found");
     }
 
-    res.render("listing/show", { listingData });
+    res.render("listing/show.ejs", { listingData });
 }));
-// create route
-app.post("/newListing", async (req, res,next) => {
-  try {
-    const listing = new Listing(req.body.listing);
-    await listing.save();
+
+// EDIT FORM
+app.get("/listings/:id/edit", WrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+
+    if (!listing) {
+        throw new ExpressError(404, "Listing not found");
+    }
+
+    res.render("listing/edit.ejs", { listing });
+}));
+
+// UPDATE
+app.put(
+    "/listings/:id",
+    validateListing,
+    WrapAsync(async (req, res) => {
+        const { id } = req.params;
+        await Listing.findByIdAndUpdate(
+            id,
+            { ...req.body.listing },
+            { runValidators: true }
+        );
+        res.redirect(`/listings/${id}`);
+    })
+);
+
+// DELETE
+app.delete("/listings/:id", WrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const deletedListing = await Listing.findByIdAndDelete(id);
+
+    if (!deletedListing) {
+        throw new ExpressError(404, "Listing not found");
+    }
+
     res.redirect("/listings");
-  } catch (err) {
-    next(err);
-    console.log("Validation error:", err.message);
-    res.status(400).send("Validation failed");
-  }
-});
+}));
 
-//edit route
 
-app.get("/listing/:id/edit",async (req,res)=>{
-    let {id} = req.params
-    console.log(id)
-    let listing = await Listing.findById(id)
-    console.log(listing)
-    res.render("listing/edit.ejs",{listing})
+//ERROR 404 HANDLER
 
-})
 
-app.put("/listings/:id", async (req,res)=>{
-    let {id} = req.params
-    console.log(id)
-    console.log(req.body.listing)
-    await Listing.findByIdAndUpdate(id,{...req.body.listing})
-    res.redirect(`/listings/${id}`)
-
-})
-
-// Delete route
-
-app.delete("/listing/:id",async (req,res)=>{
-    let {id} = req.params
-    console.log(id)
-    let deletedElement = await Listing.findByIdAndDelete(id)
-    console.log(deletedElement)
-    res.redirect("/listings")
-})
-
-// 404 handler (NO PATH)
 app.use((req, res, next) => {
-    next(new ExpressError(404, "Page Not Found!!!"));
+    next(new ExpressError(404, "Page Not Found !!!"));
 });
-// custom error 
+
+
+// GLOBAL ERROR HANDLER
+
+
 app.use((err, req, res, next) => {
-    let { statusCode = 500, message = "Something went wrong" } = err;
-    res.status(statusCode).render("listing/error", { statusCode, message });
+    let { statusCode = 500, message = "OOps!! Something went wrong ! " } = err;
+    res.status(statusCode).render("error", { statusCode, message });
+});
+
+
+// SERVER START
+
+
+app.listen(8080, () => {
+    console.log("Server listening on port 8080 !!!");
 });
