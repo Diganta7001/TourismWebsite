@@ -49,3 +49,5 @@ ________________________________________________________________________________
     16. Reviews feature is being added. utill now I have made reviews.js joined it with listings.js using objectID of the
         review.js and I can sumbit a review for now and it will be saved at the database but till now it is not shown in the
         frontend.
+_____________________________________________________________________________________________________________________
+    17. client side validation and server side validation is done for reviews.

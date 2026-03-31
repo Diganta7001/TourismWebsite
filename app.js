@@ -7,7 +7,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const WrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { listingSchema } = require("./schema.js");
+const { listingSchema,reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 
 
@@ -44,6 +44,14 @@ const validateListing = (req, res, next) => {
     next();
 };
 
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if(error){
+        const msg = error.details.map(el => el.message).join(",");
+        throw new ExpressError(400, msg);   
+    }
+    next();
+};
 
 //ROUTES
 
@@ -126,7 +134,7 @@ app.delete("/listings/:id", WrapAsync(async (req, res) => {
 }));
 
 // CREATE REVIEW
-app.post("/listings/:id/reviews", WrapAsync(async (req, res) => {
+app.post("/listings/:id/reviews", validateReview, WrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
     const review = new Review(req.body.review);
