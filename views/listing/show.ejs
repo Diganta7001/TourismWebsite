@@ -48,22 +48,30 @@
                 <textarea name="review[comment]" id="comment" class="form-control" rows="4" required></textarea>
                 <div class="invalid-feedback">Please leave a review</div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Review</button>
+            <button type="submit" class="btn btn-primary mt-3">Submit Review</button>
         </form>
     </div>
-    <div>
+        <div>
         <h3>All Reviews</h3>
-        <% if (listingData.reviews.length > 0) { %>
-            <% listingData.reviews.forEach(review => { %>
-                <div class="card mb-3 col-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Rating: <%= review.rating %></h5>
-                        <p class="card-text"><%= review.comment %></p>
+        <div class="row">
+            <% if (listingData.reviews.length > 0) { %>
+                <% listingData.reviews.forEach(review => { %>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title ms-2">Review</h4>
+                                <h5 class="card-title ms-2">Rating: <%= review.rating %> Stars</h5>
+                                <p class="card-text ms-2"><%= review.comment %></p>
+                            </div>
+                            <form action="/listings/<%= listingData._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mb-3">
+                                <button class="btn btn-sm btn-dark ms-2">Delete</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            <% }); %>
-        <% } else { %>
-            <p>No reviews yet.</p>
-        <% } %>
+                <% }); %>
+            <% } else { %>
+                <p>No reviews yet.</p>
+            <% } %>
+        </div>
     </div>
 </div>

@@ -144,6 +144,15 @@ app.post("/listings/:id/reviews", validateReview, WrapAsync(async (req, res) => 
     res.redirect(`/listings/${id}`);
 }));
 
+// Delete Review
+app.delete("/listings/:id/reviews/:reviewId", WrapAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Listing.findByIdAndUpdate(id, {$pull: { reviews: reviewId }});
+    await Review.findByIdAndDelete(reviewId);
+
+    res.redirect(`/listings/${id}`);
+}));
+
 
 //ERROR 404 HANDLER
 
