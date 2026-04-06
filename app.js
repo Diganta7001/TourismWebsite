@@ -1,15 +1,13 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const WrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema,reviewSchema } = require("./schema.js");
-const Review = require("./models/review.js");
 const listingRoutes = require("./routes/listing.js");
+const reviewRoutes = require("./routes/reviews.js");
 
 // app config..
 
@@ -32,8 +30,6 @@ mongoose.connect(mongo_url)
 
 
 // joi validation middleware
-
-
 const validateListing = (req, res, next) => {
     const { error } = listingSchema.validate(req.body);
 
@@ -43,7 +39,6 @@ const validateListing = (req, res, next) => {
     }
     next();
 };
-
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if(error){
@@ -52,47 +47,30 @@ const validateReview = (req, res, next) => {
     }
     next();
 };
-//listing routes
 
+
+//listing routes
 app.use("/listings", listingRoutes);
+
+
+//review routes
+app.use("/listings/:id/reviews", reviewRoutes);
+
 
 //Home
 app.get("/", (req, res) => {
     res.send("It is working");
 });
 
-// CREATE REVIEW
-app.post("/listings/:id/reviews", validateReview, WrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findById(id);
-    const review = new Review(req.body.review);
-    listing.reviews.push(review);
-    await review.save();
-    await listing.save();
-    res.redirect(`/listings/${id}`);
-}));
-
-// Delete Review
-app.delete("/listings/:id/reviews/:reviewId", WrapAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await Listing.findByIdAndUpdate(id, {$pull: { reviews: reviewId }});
-    await Review.findByIdAndDelete(reviewId);
-
-    res.redirect(`/listings/${id}`);
-}));
 
 
 //ERROR 404 HANDLER
-
-
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found !!!"));
 });
 
 
 // GLOBAL ERROR HANDLER
-
-
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "OOps!! Something went wrong ! " } = err;
     res.status(statusCode).render("error", { statusCode, message });
@@ -100,8 +78,6 @@ app.use((err, req, res, next) => {
 
 
 // SERVER START
-
-
 app.listen(8080, () => {
     console.log("Server listening on port 8080 !!!");
 });
