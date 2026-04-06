@@ -1,0 +1,91 @@
+const express = require('express');
+const router = express.Router();
+const Listing = require("../models/listing.js");
+const WrapAsync = require("../utils/WrapAsync.js");
+const ExpressError = require("../utils/ExpressError.js");
+const { listingSchema } = require("../schema.js");
+
+const validateListing = (req, res, next) => {
+    const { error } = listingSchema.validate(req.body);
+
+    if (error) {
+        const msg = error.details.map(el => el.message).join(",");
+        throw new ExpressError(400, msg);
+    }
+    next();
+};
+
+//Index - Show all listings
+router.get("/", WrapAsync(async (req, res) => {
+    const allListings = await Listing.find({});
+    res.render("listing/index.ejs", { allListings });
+}));
+
+//NEW - Form
+router.get("/new", (req, res) => {
+    res.render("listing/new.ejs");
+});
+
+// CREATE
+router.post(
+    "/",
+    validateListing,
+    WrapAsync(async (req, res) => {
+        const listing = new Listing(req.body.listing);
+        await listing.save();
+        res.redirect("/listings");
+    })
+);
+
+// SHOW
+router.get("/:id", WrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const listingData = await Listing.findById(id).populate("reviews");
+
+    if (!listingData) {
+        throw new ExpressError(404, "Listing not found");
+    }
+
+    res.render("listing/show.ejs", { listingData });
+}));
+
+// EDIT FORM
+router.get("/:id/edit", WrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+
+    if (!listing) {
+        throw new ExpressError(404, "Listing not found");
+    }
+
+    res.render("listing/edit.ejs", { listing });
+}));
+
+// UPDATE
+router.put(
+    "/:id",
+    validateListing,
+    WrapAsync(async (req, res) => {
+        const { id } = req.params;
+        await Listing.findByIdAndUpdate(
+            id,
+            { ...req.body.listing },
+            { runValidators: true }
+        );
+        res.redirect(`/listings/${id}`);
+    })
+);
+
+// DELETE
+router.delete("/:id", WrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const deletedListing = await Listing.findByIdAndDelete(id);
+
+    if (!deletedListing) {
+        throw new ExpressError(404, "Listing not found");
+    }
+
+    res.redirect("/listings");
+}));
+
+module.exports = router;

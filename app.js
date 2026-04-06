@@ -9,7 +9,7 @@ const WrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema,reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
-
+const listingRoutes = require("./routes/listing.js");
 
 // app config..
 
@@ -52,86 +52,14 @@ const validateReview = (req, res, next) => {
     }
     next();
 };
+//listing routes
 
-//ROUTES
+app.use("/listings", listingRoutes);
 
 //Home
 app.get("/", (req, res) => {
     res.send("It is working");
 });
-
-//Index - Show all listings
-app.get("/listings", WrapAsync(async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listing/index.ejs", { allListings });
-}));
-
-//NEW - Form
-app.get("/listings/new", (req, res) => {
-    res.render("listing/new.ejs");
-});
-
-// CREATE
-app.post(
-    "/listings",
-    validateListing,
-    WrapAsync(async (req, res) => {
-        const listing = new Listing(req.body.listing);
-        await listing.save();
-        res.redirect("/listings");
-    })
-);
-
-// SHOW
-app.get("/listings/:id", WrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const listingData = await Listing.findById(id).populate("reviews");
-
-    if (!listingData) {
-        throw new ExpressError(404, "Listing not found");
-    }
-
-    res.render("listing/show.ejs", { listingData });
-}));
-
-// EDIT FORM
-app.get("/listings/:id/edit", WrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findById(id);
-
-    if (!listing) {
-        throw new ExpressError(404, "Listing not found");
-    }
-
-    res.render("listing/edit.ejs", { listing });
-}));
-
-// UPDATE
-app.put(
-    "/listings/:id",
-    validateListing,
-    WrapAsync(async (req, res) => {
-        const { id } = req.params;
-        await Listing.findByIdAndUpdate(
-            id,
-            { ...req.body.listing },
-            { runValidators: true }
-        );
-        res.redirect(`/listings/${id}`);
-    })
-);
-
-// DELETE
-app.delete("/listings/:id", WrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const deletedListing = await Listing.findByIdAndDelete(id);
-
-    if (!deletedListing) {
-        throw new ExpressError(404, "Listing not found");
-    }
-
-    res.redirect("/listings");
-}));
 
 // CREATE REVIEW
 app.post("/listings/:id/reviews", validateReview, WrapAsync(async (req, res) => {

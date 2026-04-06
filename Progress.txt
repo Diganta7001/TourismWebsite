@@ -57,3 +57,6 @@ ________________________________________________________________________________
     19. delete review is implemented
 _____________________________________________________________________________________________________________________
     20. Reviews are handled. if the listing is deleted then the reviews associated with the listing is also deleted
+_____________________________________________________________________________________________________________________
+    21. restructuring the listing, creating  listing.js as a route inside routes folder for app.js and and requring the
+        listing.js in app.js.
