@@ -33,6 +33,7 @@ router.post(
     WrapAsync(async (req, res) => {
         const listing = new Listing(req.body.listing);
         await listing.save();
+        req.flash("success", "New listing created!");
         res.redirect("/listings");
     })
 );
@@ -43,6 +44,7 @@ router.get("/:id", WrapAsync(async (req, res) => {
     const listingData = await Listing.findById(id).populate("reviews");
 
     if (!listingData) {
+        req.flash("error", "Listing not found");
         throw new ExpressError(404, "Listing not found");
     }
 
@@ -55,6 +57,7 @@ router.get("/:id/edit", WrapAsync(async (req, res) => {
     const listing = await Listing.findById(id);
 
     if (!listing) {
+        req.flash("error", "Listing not found");
         throw new ExpressError(404, "Listing not found");
     }
 
@@ -72,6 +75,7 @@ router.put(
             { ...req.body.listing },
             { runValidators: true }
         );
+        req.flash("success", "Listing updated successfully!");
         res.redirect(`/listings/${id}`);
     })
 );
@@ -80,6 +84,7 @@ router.put(
 router.delete("/:id", WrapAsync(async (req, res) => {
     const { id } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
+    req.flash("success", "Listing deleted successfully!");
 
     if (!deletedListing) {
         throw new ExpressError(404, "Listing not found");

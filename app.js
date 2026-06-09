@@ -9,6 +9,7 @@ const { listingSchema,reviewSchema } = require("./schema.js");
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 
 // app config..
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
-// session config
+// session config and flash config
 const sessionConfig = {
     secret: "mysecretkey",
     resave: false,
@@ -33,6 +34,7 @@ const sessionConfig = {
     }
 };
 app.use(session(sessionConfig));
+app.use(flash());
 
 // db connection
 
@@ -62,6 +64,13 @@ const validateReview = (req, res, next) => {
     }
     next();
 };
+
+// flash middleware
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
 
 
 //listing routes

@@ -7,30 +7,36 @@
         <form action="/listings" method="POST" class="needs-validation" novalidate>
 
             <div class="mb-3">
+                <p><b>Title</b></p>
                 <input type="text" name="listing[title]" class="form-control" placeholder="Title" required>
                 <div class="invalid-feedback">Title is required</div>
             </div>
 
             <div class="mb-3">
+                <p><b>Description</b></p>
                 <textarea name="listing[description]" class="form-control" placeholder="Description" required></textarea>
                 <div class="invalid-feedback">Description is required</div>
             </div>
 
             <div class="mb-3">
+                <p><b>Price</b></p>
                 <input  name="listing[price]" class="form-control" placeholder="Price" required>
                 <div class="invalid-feedback">Price is required</div>
             </div>
 
             <div class="mb-3">
+                <p><b>Image URL</b></p>
                 <input type="text" name="listing[image][url]" class="form-control" placeholder="Image URL">
             </div>
 
             <div class="mb-3">
+                <p><b>Location</b></p>
                 <input type="text" name="listing[location]" class="form-control" placeholder="Location" required>
                 <div class="invalid-feedback">Location is required</div>
             </div>
 
             <div class="mb-3">
+                <p><b>Country</b></p>
                 <input type="text" name="listing[country]" class="form-control" placeholder="Country" required>
                 <div class="invalid-feedback">Country is required</div>
             </div>
