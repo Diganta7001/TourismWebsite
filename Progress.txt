@@ -61,3 +61,5 @@ ________________________________________________________________________________
     21. restructuring the listing, creating  listing.js as a route inside routes folder for app.js and and requring the
         listing.js in app.js.
     22. restructuring the reviews, creating reviews.js 
+    23. Routing is done
+    24. Cookie in session option

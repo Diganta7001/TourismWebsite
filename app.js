@@ -8,6 +8,8 @@ const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema,reviewSchema } = require("./schema.js");
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
+const session = require("express-session");
+
 
 // app config..
 
@@ -18,6 +20,18 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+
+// session config
+const sessionConfig = {
+    secret: "mysecretkey",
+    resave: false,
+    saveUninitialized: true,
+    cookie:{
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, 
+        maxAge: 1000 * 60 * 60 * 24 * 7, 
+    }
+};
+app.use(session(sessionConfig));
 
 // db connection
 
