@@ -63,3 +63,8 @@ ________________________________________________________________________________
     22. restructuring the reviews, creating reviews.js 
     23. Routing is done
     24. Cookie in session option
+_____________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________
+    25. Trying to implement the user signup and login. untill now we can do basic signup and login using passport, passport-local
+    passport-local-mongoose. on /signup route we can just do signup and i will be redirected to /listings and /login is woking but
+    no login page is created.

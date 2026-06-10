@@ -8,6 +8,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema,reviewSchema } = require("./schema.js");
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
+const userRoutes = require("./routes/users.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 const User = require("./models/users.js");
@@ -103,6 +104,9 @@ app.use("/listings", listingRoutes);
 
 //review routes
 app.use("/listings/:id/reviews", reviewRoutes);
+
+//user routes
+app.use("/", userRoutes);
 
 
 //Home
