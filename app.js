@@ -10,6 +10,9 @@ const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const User = require("./models/users.js");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
 
 // app config..
@@ -35,6 +38,13 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig));
 app.use(flash());
+
+// Passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // db connection
 
@@ -70,6 +80,20 @@ app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
+});
+
+
+// demo user route
+app.get("/demoUser1", async (req, res) => {
+    const user = new User({
+        username: "demoUser1",
+        email: "demo@example1.com"
+    });
+
+    const registeredUser =
+        await User.register(user, "mypassword1231");
+
+    res.send(registeredUser);
 });
 
 
