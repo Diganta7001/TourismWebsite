@@ -35,6 +35,7 @@ router.post(
     validateListing ,
     WrapAsync(async (req, res) => {
         const listing = new Listing(req.body.listing);
+        listing.owner = req.user._id;
         await listing.save();
         req.flash("success", "New listing created!");
         res.redirect("/listings");
@@ -44,13 +45,13 @@ router.post(
 // SHOW
 router.get("/:id", WrapAsync(async (req, res) => {
     const { id } = req.params;
-    const listingData = await Listing.findById(id).populate("reviews");
+    const listingData = await Listing.findById(id).populate("reviews").populate("owner");
 
     if (!listingData) {
         req.flash("error", "Listing not found");
         throw new ExpressError(404, "Listing not found");
     }
-
+    console.log(listingData);
     res.render("listing/show.ejs", { listingData });
 }));
 
@@ -64,6 +65,7 @@ router.get("/:id/edit", isLoggedIn, WrapAsync(async (req, res) => {
         throw new ExpressError(404, "Listing not found");
     }
 
+    console.log(listing);
     res.render("listing/edit.ejs", { listing });
 }));
 

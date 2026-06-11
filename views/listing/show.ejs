@@ -12,6 +12,7 @@
 
         <div class="show-content">
             <h2 class="show-title"><%= listingData.title %></h2>
+            <i class="show-owner">Owner: <%= listingData.owner.username %></i>
             <p class="show-description"><%= listingData.description %></p>
             <p class="show-price">&#36 <%= listingData.price.toLocaleString('en-US') %>/Night</p>
             <p class="show-location"><%= listingData.location %></p>
