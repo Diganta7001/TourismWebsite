@@ -29,7 +29,8 @@ router.get("/login",(req,res)=>{
 })
 
 router.post("/login", passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), WrapAsync(async (req, res) => {
-    res.send("Logged in successfully!");
+    req.flash("success", `Welcome back! ${req.user.username}`);
+    res.redirect("/listings");
 }));
 
 
