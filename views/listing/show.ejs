@@ -42,6 +42,7 @@
     </div>
     <br>
     <div class="show-card col-8  mb-3">
+        <% if(currUser) {%>
         <h3>Leave a Review</h3>
         <form method="POST" action="/listings/<%= listingData._id %>/reviews" class="needs-validation" novalidate>
             <div class="form-group">
@@ -56,6 +57,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-3">Submit Review</button>
         </form>
+        <% } %>
     </div>
         <div>
         <h3>All Reviews</h3>
@@ -65,7 +67,7 @@
                     <div class="col-12 col-md-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h4 class="card-title ms-2">Review</h4>
+                                <h4 class="card-title ms-2"><%= review.author.username %> <i>(Author)</i></h4>
                                 <h5 class="card-title ms-2">Rating: <%= review.rating %> Stars</h5>
                                 <p class="card-text ms-2"><%= review.comment %></p>
                             </div>
