@@ -17,7 +17,7 @@
             <p class="show-price">&#36 <%= listingData.price.toLocaleString('en-US') %>/Night</p>
             <p class="show-location"><%= listingData.location %></p>
         </div>
-
+        <% if (currUser && currUser._id.equals(listingData.owner._id)) { %>
         <div class="show-actions">
             <!-- FIXED ROUTE -->
             <a href="/listings/<%= listingData._id %>/edit" class="btn-edit">
@@ -33,6 +33,11 @@
                 <button type="submit" class="btn-delete">Delete</button>
             </form>
         </div>
+        <% } else { %>
+            <a href="/listings" class="btn btn-primary w-100">
+                Back to Listings
+            </a>
+        <% } %>
 
     </div>
     <br>

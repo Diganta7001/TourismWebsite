@@ -1,5 +1,9 @@
 const Listing = require("./models/listing");
 const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema } = require("./schema.js");
+const User = require("./models/users.js");
+const { reviewSchema } = require("./schema.js");
+
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){
         req.session.redirectUrl = req.originalUrl;
@@ -32,6 +36,15 @@ module.exports.validateListing = (req, res, next) => {
     if (error) {
         const msg = error.details.map(el => el.message).join(",");
         throw new ExpressError(400, msg);
+    }
+    next();
+};
+
+module.exports.validateReview = (req, res, next) => {    
+    const { error } = reviewSchema.validate(req.body);
+    if(error){
+        const msg = error.details.map(el => el.message).join(",");
+        throw new ExpressError(400, msg); 
     }
     next();
 };
