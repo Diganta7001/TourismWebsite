@@ -5,6 +5,7 @@ const WrapAsync = require("../utils/WrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const { isLoggedIn } = require("../MiddleWare.js");
+const {isOwner} = require("../MiddleWare.js");
 
 const validateListing = (req, res, next) => {
     const { error } = listingSchema.validate(req.body);
@@ -56,7 +57,7 @@ router.get("/:id", WrapAsync(async (req, res) => {
 }));
 
 // EDIT FORM
-router.get("/:id/edit", isLoggedIn, WrapAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, isOwner, WrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
 
@@ -73,9 +74,11 @@ router.get("/:id/edit", isLoggedIn, WrapAsync(async (req, res) => {
 router.put(
     "/:id", 
     isLoggedIn,
+    isOwner,
     validateListing,
     WrapAsync(async (req, res) => {
         const { id } = req.params;
+        let listing = await Listing.findById(id);
         await Listing.findByIdAndUpdate(
             id,
             { ...req.body.listing },
@@ -87,7 +90,7 @@ router.put(
 );
 
 // DELETE
-router.delete("/:id", isLoggedIn, WrapAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn, isOwner, WrapAsync(async (req, res) => {
     const { id } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
     req.flash("success", "Listing deleted successfully!");
