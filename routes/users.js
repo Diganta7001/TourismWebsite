@@ -6,35 +6,13 @@ const ExpressError = require("../utils/ExpressError.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const { saveRediectUrl } = require('../MiddleWare.js');
+const userController = require("../controllers/users.js")
 
-router.get("/signup",(req,res)=>{
-    res.render("Users/signup.ejs");
-})
+router.get("/signup",userController.renderSignupForm);
 
-router.post("/signup", WrapAsync(async (req, res,next) => {
-        try{
-        const { username,email, password } = req.body;
-        const user = new User({ email: email, username: username });
-        const registeredUser = await User.register(user, password);
-        console.log(registeredUser);
-        req.login(registeredUser, err => {
-            if (err) {
-                return next(err);
-            }
-            req.flash("success", `Welcome to WonderLust, ${registeredUser.username}!`);
-            res.redirect("/listings");
-        });
-        // req.flash("success", "Welcome to WonderLust!");
-        // res.redirect("/listings");
-        }catch(e){
-            req.flash("error", e.message);
-            res.redirect("/signup");
-        }
-}));
+router.post("/signup", WrapAsync(userController.signup));
 
-router.get("/login",(req,res)=>{
-    res.render("Users/login.ejs");
-})
+router.get("/login",userController.renderLoginForm)
 
 router.post(
     "/login",
@@ -43,23 +21,11 @@ router.post(
         failureRedirect: "/login",
         failureFlash: true
     }),
-    (req, res) => {
-        req.flash("success", `Welcome back! ${req.user.username}`);
+    userController.login
+    
+)
 
-        let redirectUrl = res.locals.redirectUrl || "/listings";
-        res.redirect(redirectUrl);
-    }
-);
-
-router.get("/logout", (req, res,next) => {
-    req.logout((err) => {
-        if (err) { 
-            return next(err); 
-        }
-        req.flash("success", "You have been logged out!");
-        res.redirect("/listings");
-    });
-});
+router.get("/logout", userController.logout);
 
 module.exports = router;
 
