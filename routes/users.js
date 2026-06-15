@@ -8,19 +8,18 @@ const LocalStrategy = require("passport-local");
 const { saveRediectUrl } = require('../MiddleWare.js');
 const userController = require("../controllers/users.js")
 
-router.get("/signup",userController.renderSignupForm);
+router.route("/signup")
+.get(userController.renderSignupForm)
+.post(WrapAsync(userController.signup));
 
-router.post("/signup", WrapAsync(userController.signup));
-
-router.get("/login",userController.renderLoginForm)
-
-router.post(
-    "/login",
-    saveRediectUrl,
-    passport.authenticate("local", {
-        failureRedirect: "/login",
-        failureFlash: true
-    }),
+router.route("/login")
+    .get(userController.renderLoginForm)
+    .post(
+        saveRediectUrl,
+        passport.authenticate("local", {
+            failureRedirect: "/login",
+            failureFlash: true
+        }),
     userController.login
     
 )
