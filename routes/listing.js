@@ -6,11 +6,18 @@ const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const { isLoggedIn, isOwner, validateListing } = require("../MiddleWare.js");
 const listingController = require("../controllers/listing.js")
+const multer  = require('multer')
+const {storage} = require("../cloudConfig.js")
+const upload = multer({storage})
+
 
 
 router.route("/")
     .get(WrapAsync(listingController.index))
-    .post(isLoggedIn, validateListing, WrapAsync(listingController.createListing));
+    // .post(isLoggedIn, validateListing, WrapAsync(listingController.createListing));
+    .post(upload.single("listing[image]"), (req,res)=>{
+        res.send(req.file);
+    });
 
 
 //New- Form

@@ -68,3 +68,9 @@ ________________________________________________________________________________
     25. Trying to implement the user signup and login. untill now we can do basic signup and login using passport, passport-local
     passport-local-mongoose. on /signup route we can just do signup and i will be redirected to /listings and /login is woking but
     no login page is created.
+
+_____________________________________________________________________________________________________________________
+    26. to handle multiplart/form-data we install multer --- npm i multer--- it is a middleware to hadle this type of data.
+    27. configuring the enviourmental variables using dotenv and .env (npm i dotenv)
+    28. installing cloudinary and multer storege cloudinary npm packages
+    29. trying to implement the file upload in cloudinary... we are changing the schema of the listing.js in the models folder

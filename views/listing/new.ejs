@@ -4,7 +4,7 @@
     <h3 class="page-heading">Add New Listing</h3>
 
     <div class="form-card">
-        <form action="/listings" method="POST" class="needs-validation" novalidate>
+        <form action="/listings" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
 
             <div class="mb-3">
                 <p><b>Title</b></p>
@@ -29,6 +29,11 @@
                 <input type="text" name="listing[image][url]" class="form-control" placeholder="Image URL">
             </div>
 
+            <div class="mb-3">
+                <p><b>Image</b></p>
+                <input type="file" name="listing[image]" class="form-control" placeholder="Image">
+            </div>
+            
             <div class="mb-3">
                 <p><b>Location</b></p>
                 <input type="text" name="listing[location]" class="form-control" placeholder="Location" required>
