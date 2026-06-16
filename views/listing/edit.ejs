@@ -4,33 +4,39 @@
     <h3 class="page-heading">Edit Listing</h3>
 
     <div class="form-card narrow">
-        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
 
             <div class="mb-3 text-center">
                 <img id="imgPreview" src="<%= listing.image.url %>" class="img-fluid rounded" style="max-height: 250px;" alt="Preview">
             </div>
 
             <div class="mb-3">
-                <input type="text" name="listing[image][url]" value="<%= listing.image.url %>" class="form-control" required>
+                <label for="image">Upload New Image</label>
+                <input type="file" name="listing[image]" class="form-control">
             </div>
 
             <div class="mb-3">
+                <label for="title">Title</label>
                 <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
             </div>
 
             <div class="mb-3">
+                <label for="description">Description</label>
                 <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
             </div>
 
             <div class="mb-3">
+                <label for="price">Price</label>
                 <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
             </div>
 
             <div class="mb-3">
+                <label for="location">Location</label>
                 <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
             </div>
 
             <div class="mb-3">
+                <label for="country">Country</label>
                 <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
             </div>
 

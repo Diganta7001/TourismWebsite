@@ -57,6 +57,7 @@ module.exports.updateListing = async (req, res) => {
             let url = req.file.path;
             let filename = req.file.filename;
             listing.image = { url, filename };
+            await listing.save();
         }
         await Listing.findByIdAndUpdate(
             id,
