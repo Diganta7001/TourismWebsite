@@ -277,3 +277,10 @@ footer {
     background: #c82333;
     transform: translateY(-2px);
 }
+
+/* map */
+#map { 
+    height: 400px;
+    width: 100vh; 
+    border-radius: 1rem;
+    }

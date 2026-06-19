@@ -7,7 +7,7 @@
         <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
 
             <div class="mb-3 text-center">
-                <img id="imgPreview" src="<%= listing.image.url %>" class="img-fluid rounded" style="max-height: 250px;" alt="Preview">
+                <img id="imgPreview" src="<%= originalImageURL %>" class="img-fluid rounded" style="max-height: 250px;" alt="Preview">
             </div>
 
             <div class="mb-3">

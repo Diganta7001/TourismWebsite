@@ -46,8 +46,11 @@ module.exports.renderEditForm = async (req, res) => {
         throw new ExpressError(404, "Listing not found");
     }
 
-    console.log(listing);
-    res.render("listing/edit.ejs", { listing });
+    let originalImageURL = listing.image.url;
+    originalImageURL = originalImageURL.replace("/upload/", "/upload/w_250/");
+
+    res.render("listing/edit.ejs", { listing, originalImageURL });
+
 }
 
 module.exports.updateListing = async (req, res) => {
