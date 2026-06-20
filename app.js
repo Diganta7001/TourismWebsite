@@ -87,21 +87,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
-// demo user route
-app.get("/demoUser1", async (req, res) => {
-    const user = new User({
-        username: "demoUser1",
-        email: "demo@example1.com"
-    });
-
-    const registeredUser =
-        await User.register(user, "mypassword1231");
-
-    res.send(registeredUser);
-});
-
-
 //listing routes
 app.use("/listings", listingRoutes);
 
@@ -111,13 +96,6 @@ app.use("/listings/:id/reviews", reviewRoutes);
 
 //user routes
 app.use("/", userRoutes);
-
-
-//Home
-app.get("/", (req, res) => {
-    res.send("It is working");
-});
-
 
 
 //ERROR 404 HANDLER
