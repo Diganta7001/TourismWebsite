@@ -13,12 +13,21 @@ const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const userRoutes = require("./routes/users.js");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const {MongoStore} = require('connect-mongo');
 const flash = require("connect-flash");
 const User = require("./models/users.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-
+const store = MongoStore.create({
+    mongoUrl: process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/WonderLust2",
+    crypto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24 * 60 * 60
+});
+store.on("error", function(e){
+    console.log("Session Store Error", e);
+});
 
 // app config..
 
@@ -32,14 +41,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // session config and flash config
 const sessionConfig = {
-    secret: "mysecretkey",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie:{
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, 
         maxAge: 1000 * 60 * 60 * 24 * 7, 
         httpOnly: true
-    }
+    },
+    store: store
 };
 app.use(session(sessionConfig));
 app.use(flash());
@@ -56,12 +66,13 @@ passport.deserializeUser(User.deserializeUser());
 
 const mongo_url = "mongodb://127.0.0.1:27017/WonderLust2";
 const mongo_url_atlas = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/WonderLust2";
-
+console.log(mongo_url);
 mongoose.connect(mongo_url_atlas)
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => console.log("MongoDB Connection Error:", err));
 
 
+    
 // joi validation middleware
 const validateListing = (req, res, next) => {
     const { error } = listingSchema.validate(req.body);
