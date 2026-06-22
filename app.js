@@ -13,6 +13,7 @@ const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const userRoutes = require("./routes/users.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const User = require("./models/users.js");
 const passport = require("passport");
@@ -54,8 +55,9 @@ passport.deserializeUser(User.deserializeUser());
 
 
 const mongo_url = "mongodb://127.0.0.1:27017/WonderLust2";
+const mongo_url_atlas = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/WonderLust2";
 
-mongoose.connect(mongo_url)
+mongoose.connect(mongo_url_atlas)
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => console.log("MongoDB Connection Error:", err));
 
